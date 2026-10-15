@@ -81,6 +81,9 @@ düzeltmelerde hızlı döngü: betiği düzenle → canlı sahnede yeniden kur 
 | `robot_arabasi_20261015.py` | Robot kızağı (1.5 karo genişlik), araba (1 × 1 tabla), kapaklı kremayer, kablo zinciri | `ray`, `araba`, `kablo_zinciri` |
 | `konveyor_20261015.py` | Paletli bant, 3 × 3 modüller: `duz` (3 m), `durak`, `donus` (ortada döner tabla; yan başına `_kol_`/`_kapali_` düğümü); yanlarda yol + 0.7 m korkuluk. `bant` = yalnız 1 m bant (istasyon içi), `palet` | Bant üstü 0.75 m |
 | `istasyon_01_anakart_montaji_20261015.py` | 01 hücresi: ortadan paletli bant + durak, iki yanda kızaklı robot, 4 × (3 × 3) stok bloğu, çit | `yerlesim()` → oyun yuvaları |
+| `islemci_girdileri_20261015.py` | 02'nin girdileri: silikon çekirdek (wafer kutusu, seviye şeridi temel mavi / orta turuncu / üst kırmızı), işlemci taşıyıcısı (JEDEC tepsi), ısı yayıcı kapak (gümüş yığınlar) | `build_cekirdekler`, `build_tasiyici`, `build_kapak` |
+| `islemcili_kasa_20261015.py` | 02'nin çıktısı: anakartlı kasa + sokette işlemci | `anakartli_kasa`'nın `cpu`'su değiştirilir |
+| `istasyon_02_islemci_montaji_20261015.py` | 02 hücresi: 01'in iskeleti (fonksiyonları çağrılır), 3 stok bloğu, ön sağda 2 × 2 paketleme presi | `yerlesim()` → pres yuvası da var |
 | `renk_paleti.py` | Ortak canlı renkler | |
 | `model_katalogu.py`, `export_godot.py` | Oyuna aktarma | |
 
@@ -97,7 +100,7 @@ Eski/deneme betikleri (`b_style_test_scene_*`, `board_station_pl_*`, `floor_stud
 - Konveyör: bant başı/sonu modülü; kızak için modüler (karo karo) ray; kablo zincirinin araba hareketine göre
   oyunda yeniden şekillenmesi.
 - Robot pozları / animasyon (Godot'ta eklem düğümleri; `tools/preview_yeni_modeller.gd` `_pose` örneği).
-- 02 işlemci montaj istasyonu ve girdileri (silikon çekirdek, taşıyıcı, ısı yayıcı kapak).
+- 02 hücresi oyunda (glb + yerleşim aktarıldı; `factory_view.gd` henüz eski "cpu" görselini kullanıyor).
 - Bant ve 01 hücresi oyunda (`../prosedürel/world/istasyon_01_view.gd`, `factory_view.gd`; hücre 11 × 11 karo,
   istasyon betiği bu sınıra sığacak şekilde). Sıradaki: diğer istasyonların yeni hatta geçmesi.
 

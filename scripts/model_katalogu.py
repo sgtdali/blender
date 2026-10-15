@@ -34,9 +34,27 @@ MODELLER = [
          tur="tek_mesh", not_="Yeşil FR4 levha, köşe koruyucu + çember. 01B'nin girdisi."),
     dict(id="bakir_folyo", kategori="stok", betik="pcb_girdileri_20261014.py", kur="build_foil",
          tur="tek_mesh", not_="Bakır folyo rulosu paletin üstünde. 01B'nin girdisi."),
+    # --- 02 işlemci montajı: girdiler ---
+    dict(id="silikon_cekirdek_temel", kategori="stok", betik="islemci_girdileri_20261015.py",
+         kur=("silikon_cekirdek", dict(seviye="temel")), tur="tek_mesh",
+         not_="Taşıma kutusunda silikon plaka, mavi seviye şeridi. 02'nin girdisi (die_basic)."),
+    dict(id="silikon_cekirdek_orta", kategori="stok", betik="islemci_girdileri_20261015.py",
+         kur=("silikon_cekirdek", dict(seviye="orta")), tur="tek_mesh",
+         not_="Aynı plaka, turuncu seviye şeridi. 02'nin girdisi (die_mid)."),
+    dict(id="silikon_cekirdek_ust", kategori="stok", betik="islemci_girdileri_20261015.py",
+         kur=("silikon_cekirdek", dict(seviye="ust")), tur="tek_mesh",
+         not_="Aynı plaka, kırmızı seviye şeridi. 02'nin girdisi (die_high)."),
+    dict(id="islemci_tasiyicisi", kategori="stok", betik="islemci_girdileri_20261015.py",
+         kur=("islemci_tasiyicisi", {}), tur="tek_mesh",
+         not_="Siyah JEDEC tepside 3 × 2 yeşil taşıyıcı. 02'nin girdisi (cpu_substrate), 02A'nın çıktısı."),
+    dict(id="isi_yayici_kapak", kategori="stok", betik="islemci_girdileri_20261015.py",
+         kur=("isi_yayici_kapak", {}), tur="tek_mesh",
+         not_="Açık gri tepside 3 × 2 gümüş kapak yığını. 02'nin girdisi (cpu_lid), 02B'nin çıktısı."),
     # --- ürün (bant üstünde paletle taşınan iş) ---
     dict(id="anakartli_kasa", kategori="urun", betik="anakartli_kasa_20261015.py", kur="build", tur="tek_mesh",
          not_="01'in çıktısı: kasada anakart, soket boş (işlemci 02'de). Palet üstünde PAL_T yukarıda durur."),
+    dict(id="islemcili_kasa", kategori="urun", betik="islemcili_kasa_20261015.py", kur="build", tur="tek_mesh",
+         not_="02'nin çıktısı: anakartlı kasa + sokette işlemci (kol kapalı). Palet üstünde PAL_T yukarıda."),
     # --- robot ---
     dict(id="robot", kategori="robot", betik="robot_20261015.py", kur="build", tur="hiyerarsi",
          not_="6 eksenli robot, 1 × 1 m taban plakalı (zemine sabit). Eklem düğümleri: *_govde (a1, z), "
@@ -68,4 +86,8 @@ MODELLER = [
     dict(id="istasyon_01_anakart_montaji", kategori="istasyon", betik="istasyon_01_anakart_montaji_20261015.py",
          kur="build", tur="istasyon",
          not_="01 anakart montaj hücresi (~10.6 × 11.2 m + bant). Arabalar+robotlar ve paletler ayrı düğüm."),
+    dict(id="istasyon_02_islemci_montaji", kategori="istasyon", betik="istasyon_02_islemci_montaji_20261015.py",
+         kur="build", tur="istasyon",
+         not_="02 işlemci montaj hücresi (01 ile aynı iskelet, 11 × 11). 3 stok bloğu + ön sağda paketleme presi. "
+              "Arabalar+robotlar ve paletler ayrı düğüm; yerleşimde pres yuvası (tur=pres)."),
 ]
