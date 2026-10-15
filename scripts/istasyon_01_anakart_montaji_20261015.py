@@ -40,12 +40,14 @@ mat, box, disc, link = H["mat"], H["box"], H["disc"], H["link"]
 KV = {"__name__": "konveyor_yardimci"}         # paletli konveyör modülleri
 exec(open(SCRIPTS + "/konveyor_20261015.py", encoding="utf-8").read(), KV)
 
-BELT_X0, BELT_X1 = -7.5, 7.5             # bant istasyonun ortasından geçer
+# Oyundaki ayak izi: 11 × 11 karo (akış boyunca giriş karosu x = −5 … çıkış karosu x = +5, yanlar ±5).
+# Her şey bu karelerin içinde kalır (x, y ∈ [−5.5, 5.5]); bant dışarıda oyunun kendi karolarıyla devam eder.
+BELT_X0, BELT_X1 = -5.5, 5.5             # istasyon içindeki bant: 11 × 1 m modül, ortadaki montaj durağı
 RAIL_Y = 1.3                             # robot kızaklarının ekseni (±); kızak 1.5 m genişliğinde
 TRACK_X0, TRACK_X1 = -5.0, 5.0           # kızak boyu 10 karo
 BLOCK_Y = 2.2                            # stok bloklarının raya yakın kenarı (±)
 COL_L, COL_R = -4.6, 1.6                 # blokların x başlangıcı (sol / sağ)
-FENCE_X, FENCE_Y = 5.3, 5.6              # çit yarı ölçüleri
+FENCE_X, FENCE_Y = 5.3, 5.45             # çit yarı ölçüleri (ayak izinin içinde)
 FENCE_H = 2.0
 
 # girdi: (ad, blend, koleksiyon, blok sol-alt köşe (x, y), dolu karo sayısı)
@@ -180,7 +182,7 @@ def pallets(root, KP):
     name, rel, cname = OUTPUT
     c = load_collection(rel, cname, name)
     for x, z, full, nm in ((0.0, KV["BELT_Z"] + KV["LIFT"], True, "durakta"),
-                           (FENCE_X + 1.2, KV["BELT_Z"], True, "cikista"),
+                           (3.5, KV["BELT_Z"], True, "cikista"),
                            (-2.2, KV["BELT_Z"], False, "giriste")):
         p = KV["palet"](KP, "Palet_" + nm)
         p.location = (x, 0, z)
@@ -278,11 +280,11 @@ def fence_line(P, root, a, b, fixed, axis, openings=()):
 
 def belt_tunnel(P, root, x):
     """Bandın çitten geçtiği yerde dışa doğru kısa kafes tünel."""
-    cx = x + (0.5 if x > 0 else -0.5)
-    for s in (-1, 1):
-        box("Tunel_yan", cx, s * 0.6, 0, 1.0, 0.04, 1.3, P["mesh"], root)
-        box("Tunel_ust", cx, s * 0.6, 1.3, 1.0, 0.06, 0.04, P["post"], root)
-    box("Tunel_cati", cx, 0, 1.3, 1.0, 1.24, 0.03, P["post"], root)
+    cx = x - (0.5 if x > 0 else -0.5)            # çitin içine doğru (ayak izi dışına taşmasın)
+    for s in (-1, 1):                              # ±0.5: kızakların (y ≥ 0.55) içinde kalır
+        box("Tunel_yan", cx, s * 0.5, 0, 1.0, 0.04, 1.3, P["mesh"], root)
+        box("Tunel_ust", cx, s * 0.5, 1.3, 1.0, 0.06, 0.04, P["post"], root)
+    box("Tunel_cati", cx, 0, 1.3, 1.0, 1.04, 0.03, P["post"], root)
 
 
 def fence(P, root):
@@ -290,23 +292,23 @@ def fence(P, root):
     fence_line(P, root, -FENCE_X, FENCE_X, -FENCE_Y, "x", ops)
     fence_line(P, root, -FENCE_X, FENCE_X, FENCE_Y, "x", ops)
     for x in (-FENCE_X, FENCE_X):                       # sol ve sağ: bant tünelleri
-        fence_line(P, root, -FENCE_Y, FENCE_Y, x, "y", [(-0.6, 0.6)])
+        fence_line(P, root, -FENCE_Y, FENCE_Y, x, "y", [(-0.5, 0.5)])
         belt_tunnel(P, root, x)
 
 
 # --- Dolap ve panel ----------------------------------------------------------------------------
 
 def controls(P, root):
-    for y in (-FENCE_Y + 0.7, FENCE_Y - 1.5):           # her robotun kendi kontrol dolabı
-        x = FENCE_X + 0.6
+    for y in (-4.6, 4.6):                                # her robotun kendi kontrol dolabı, çitin içinde köşede
+        x = FENCE_X - 0.35
         box("Robot_kontrol_dolabi", x, y, 0, 0.6, 0.8, 1.8, P["cabinet"], root, 0.02)
         box("Dolap_kapak_cizgi", x - 0.302, y, 0.1, 0.004, 0.004, 1.6, P["dark"], root)
         box("Dolap_kolu", x - 0.31, y + 0.25, 0.95, 0.03, 0.03, 0.15, P["dark"], root, 0.006)
         disc("Isik_kulesi_mil", x + 0.15, y - 0.25, 1.8, 0.02, 0.15, P["belt_frame"], root, 12)
         for j, m in enumerate((P["green"], P["amber"], P["red"])):
             disc("Isik_kulesi", x + 0.15, y - 0.25, 1.95 + j * 0.08, 0.045, 0.075, m, root, 20)
-    # operatör paneli (HMI): çitin önünde, durak hizasında
-    px, py = 0.0, -FENCE_Y - 0.5
+    # operatör paneli (HMI): ön çitin içinde, durak hizasında (iki ön blok arasında)
+    px, py = 0.0, -FENCE_Y + 0.45
     box("HMI_ayak", px, py, 0, 0.08, 0.08, 1.2, P["belt_frame"], root)
     box("HMI", px, py, 1.2, 0.45, 0.08, 0.32, P["cabinet"], root, 0.015)
     box("HMI_ekran", px, py - 0.045, 1.24, 0.36, 0.01, 0.24, P["screen"], root)
