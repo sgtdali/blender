@@ -100,9 +100,8 @@ Eski/deneme betikleri (`b_style_test_scene_*`, `board_station_pl_*`, `floor_stud
 - Konveyör: bant başı/sonu modülü; kızak için modüler (karo karo) ray; kablo zincirinin araba hareketine göre
   oyunda yeniden şekillenmesi.
 - Robot pozları / animasyon (Godot'ta eklem düğümleri; `tools/preview_yeni_modeller.gd` `_pose` örneği).
-- 02 hücresi oyunda (glb + yerleşim aktarıldı; `factory_view.gd` henüz eski "cpu" görselini kullanıyor).
 - Bant ve 01 hücresi oyunda (`../prosedürel/world/istasyon_01_view.gd`, `factory_view.gd`; hücre 11 × 11 karo,
-  istasyon betiği bu sınıra sığacak şekilde). Sıradaki: diğer istasyonların yeni hatta geçmesi.
+  istasyon betiği bu sınıra sığacak şekilde). 02 hücresi de oyunda (`istasyon_02_view.gd`, 01'in görünüm kodunu `spec` ile kullanır). Sıradaki: diğer istasyonların yeni hatta geçmesi.
 
 ## Git
 
