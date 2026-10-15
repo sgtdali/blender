@@ -1,0 +1,18 @@
+# Yerelde kurulu araçlar (depoya girmez)
+blender-5.2.1-windows-x64/
+.occ_venv/
+__pycache__/
+*.pyc
+
+# Blender yedekleri
+*.blend1
+*.blend@
+
+# Üçüncü taraf CAD içeren eski deneme dosyaları (KUKA modelleri) ve büyük eski çalışma görselleri
+output/b_tarzi_deneme_20261013/*.blend
+output/zemin_calismasi_20261012/*.png
+
+# İşletim sistemi
+Thumbs.db
+desktop.ini
+.DS_Store
