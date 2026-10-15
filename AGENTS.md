@@ -55,7 +55,9 @@ düzeltmelerde hızlı döngü: betiği düzenle → canlı sahnede yeniden kur 
 ## Görsel kurallar (kullanıcı kararları)
 
 - **Izgara:** oyun 1 × 1 m karolarla kurulur. Stok alanında bir karoda **tek birim** durur; parçalar tek tek taşınır.
-- **Eksenler:** x = bant akışı, y = arka, z = yukarı. Oyun kamerası ortografik, ~30° yükseklik, −x/−y'den bakar
+- **Yapı ölçüsü (15 Ekim 2026):** en küçük yapı **2 × 2 karo** (alt sınır; tek sayılı boyutlar serbest). **Bant modülü
+  3 × 3 karo**: taşıyan bant 1 m genişlikte ortada, iki yandaki 1'er m dekoratif.
+- **Eksenler:** x = bant akışı, y = arka, z = yukarı. Oyun kamerası ortografik, 30° yükseklik, 45° dönük, −x/−y'den bakar
   (`look` yönü `[-1, -1, 0.816]`). Godot'a geçişte (x, y, z)_Blender → (x, z, −y)_Godot.
 - **Okunurluk > gerçekçilik:** parçalar büyütülmüş, sade, uzaktan seçilebilir.
 - **Renk:** vurgular `scripts/renk_paleti.py`'den (canlı: kırmızı `#E8302A`, turuncu `#FF7A1A`, sarı `#FFC21A`,
@@ -77,7 +79,7 @@ düzeltmelerde hızlı döngü: betiği düzenle → canlı sahnede yeniden kur 
 | `anakartli_kasa_20261015.py` | 01'in çıktısı (soket boş; işlemci 02'de) | |
 | `robot_20261015.py` | **Oyunun robotu**: 6 eksen, eklem hiyerarşisi (`set_pose`, `REST`), `robot(P, ad, poz, konum, rz, plate)` | Plakalı (zemin) / plakasız (araba) |
 | `robot_arabasi_20261015.py` | Robot kızağı (1.5 karo genişlik), araba (1 × 1 tabla), kapaklı kremayer, kablo zinciri | `ray`, `araba`, `kablo_zinciri` |
-| `konveyor_20261015.py` | Paletli bant: `duz` (1 m), `donus` (1 × 1 döner tabla, tabla ayrı düğüm), `durak` (montaj durağı), `palet` | Bant üstü 0.75 m |
+| `konveyor_20261015.py` | Paletli bant, 3 × 3 modüller: `duz` (3 m), `durak`, `donus` (ortada döner tabla; yan başına `_kol_`/`_kapali_` düğümü); yanlarda yol + 0.7 m korkuluk. `bant` = yalnız 1 m bant (istasyon içi), `palet` | Bant üstü 0.75 m |
 | `istasyon_01_anakart_montaji_20261015.py` | 01 hücresi: ortadan paletli bant + durak, iki yanda kızaklı robot, 4 × (3 × 3) stok bloğu, çit | `yerlesim()` → oyun yuvaları |
 | `renk_paleti.py` | Ortak canlı renkler | |
 | `model_katalogu.py`, `export_godot.py` | Oyuna aktarma | |

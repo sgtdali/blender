@@ -171,7 +171,7 @@ def belt(root):
     n = int(round(BELT_X1 - BELT_X0))
     for k in range(n):
         x = BELT_X0 + 0.5 + k
-        m = KV["durak"](KP, "Montaj_duragi") if abs(x) < 0.01 else KV["duz"](KP, "Bant_modulu")
+        m = KV["durak"](KP, "Montaj_duragi", sides=False, L=1.0) if abs(x) < 0.01 else KV["bant"](KP, "Bant_modulu")
         m.location = (x, 0, 0)
         m.parent = root
     return KP

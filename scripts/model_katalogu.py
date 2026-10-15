@@ -51,13 +51,17 @@ MODELLER = [
     dict(id="kizak_10karo", kategori="robot", betik="robot_arabasi_20261015.py", kur=("ray", dict(tiles=10)),
          tur="tek_mesh", not_="10 karo uzunluğunda kızak (1.5 karo genişlik), x = 0..10. Kablo zinciri yok "
                              "(araba konumuna bağlı; oyunda ayrıca çözülecek)."),
-    # --- konveyör (paletli bant, 1 m modüller) ---
+    # --- konveyör (paletli bant, 3 × 3 modüller: ortada 1 m bant, yanlarda yürüme yolu + 0.7 m korkuluk) ---
     dict(id="konveyor_duz", kategori="konveyor", betik="konveyor_20261015.py", kur=("duz", {}), tur="tek_mesh",
-         not_="1 m düz modül, x = −0.5..0.5, bant üstü 0.75 m."),
+         not_="3 × 3 düz modül, x = −1.5..1.5, bant üstü 0.75 m; yanlarda yol + korkuluk."),
+    dict(id="konveyor_bant_1m", kategori="konveyor", betik="konveyor_20261015.py", kur=("bant", {}), tur="tek_mesh",
+         not_="Yalnız 1 m bant (yol/korkuluk yok), x = −0.5..0.5; istasyonların iç bandı için."),
     dict(id="konveyor_durak", kategori="konveyor", betik="konveyor_20261015.py", kur=("durak", {}),
-         tur="tek_mesh", not_="1 m montaj durağı: durdurucu, kaldırma/konumlama, sensör, ışık kulesi."),
+         tur="tek_mesh", not_="3 × 3 montaj durağı: durdurucu, kaldırma/konumlama, sensör, ışık kulesi; yanlarda yol."),
     dict(id="konveyor_donus", kategori="konveyor", betik="konveyor_20261015.py", kur=("donus", {}),
-         tur="hiyerarsi", not_="1 × 1 döner tabla; *_tablasi düğümü z (Godot'ta y) ekseninde döner."),
+         tur="hiyerarsi", not_="3 × 3; ortada döner tabla (*_tablasi, Godot y ekseninde döner). Her yan için iki düğüm: "
+         "*_kol_<xp|yp|xn|yn> (açık yan, 1 m bant kolu) ve *_kapali_<…> (kapalı yan, yol + korkuluk); birini göster. "
+         "xp = Blender +x = Godot +x, yp = Blender +y = Godot −z."),
     dict(id="palet", kategori="konveyor", betik="konveyor_20261015.py", kur=("palet", {}), tur="tek_mesh",
          not_="Taşıyıcı palet 0.72 × 0.66; altı bant üstüne (0.75) oturur, kasa PAL_T (0.03) yukarıda."),
     # --- istasyonlar ---
